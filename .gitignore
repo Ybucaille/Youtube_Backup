@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# My files
+libs/__pycache__/
+ancienne_version/*
