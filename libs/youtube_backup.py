@@ -52,14 +52,20 @@ class YouTubeDownloader:
             vid=args.vid, api_key=self.api_key
         )
         d = requests.get(url).json()
-        return d['items'][0]['snippet']['channelId']
+        try:
+            return d['items'][0]['snippet']['channelId']
+        except:
+            print("Quota exceeded")
 
     def get_channel_title(self, cid):
         url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId={cid}&key={api_key}".format(
             cid=cid, api_key=self.api_key
         )
         d = requests.get(url).json()
-        return d['items'][0]['snippet']['channelTitle']
+        try:
+            return d['items'][0]['snippet']['channelTitle']
+        except:
+            print("Quota exceeded")
 
     def get_channel_videos_url(self, channel_id, filename):
         """Fonction qui récupère l'URL de toutes les vidéos de la chaîne YouTube avec l'ID de la chaîne spécifié, en utilisant la pagination, et stocke les résultats dans un fichier JSON"""
@@ -125,7 +131,10 @@ class YouTubeDownloader:
         with open(filepath, 'w') as f:
             json.dump(video_urls, f)
 
-        return video_urls
+        try:
+            return video_urls
+        except:
+            print("Quota exceeded")
 
 
     def get_channel_videos_count(self, channel_id):
@@ -143,7 +152,11 @@ class YouTubeDownloader:
         if "items" not in data:  # Check if the data contains the expected key
             print('Response does not contain expected data')
             return None
-        return data["items"][0]["statistics"]["videoCount"]
+        
+        try:
+            return data["items"][0]["statistics"]["videoCount"]
+        except:
+            print("Quota exceeded")
 
 
     def download_video(self, url):
