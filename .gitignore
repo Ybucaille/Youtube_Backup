@@ -400,4 +400,4 @@ FodyWeavers.xsd
 # My files
 libs/__pycache__/
 ancienne_version/*
-api_key.json
+api_key_test.json
