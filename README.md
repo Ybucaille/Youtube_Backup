@@ -10,7 +10,7 @@ Install packages with pip:
 pip install -r requirements.txt
 ```
 
-Get you're Google API key and put it in the file `config.json`:
+Get you're Google API key and put it in the file `config.json` instead of `YOUR_API_KEY`:
 
 https://console.cloud.google.com/
 
