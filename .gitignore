@@ -400,4 +400,3 @@ FodyWeavers.xsd
 # My files
 libs/__pycache__/
 ancienne_version/*
-tests/*
