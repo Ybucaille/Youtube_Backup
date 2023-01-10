@@ -20,7 +20,5 @@ examples of some usage:
 
 ```
 python main.py [-start VIDEOID]
-python main.py [-downloadvid indexOfTheVideoInTheJsonFile] [-json JSONFILE]
 python main.py [-help]
-python main.py [-download_all_videos] [-json JSONFILE]
 ```
