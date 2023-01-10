@@ -4,6 +4,7 @@ import os
 from pytube import YouTube
 import argparse
 from tqdm import tqdm
+from unidecode import unidecode
 
 class YouTubeDownloader:
     def __init__(self):
@@ -173,7 +174,7 @@ class YouTubeDownloader:
                     # Envoyer une requête GET pour télécharger la vidéo
                     response = requests.get(video.url, stream=True)
                     # Ouvrir le fichier en mode écriture binaire
-                    with open(os.path.join(path, video.title + '.mp4'), 'wb') as f:
+                    with open(os.path.join(path, unidecode(video.title) + '.mp4'), 'wb') as f:
                         # Télécharger la vidéo en chunks
                         with tqdm(total=int(response.headers.get('Content-Length', 0)), unit='B', unit_scale=True, desc=f'Downloading {video.title}') as pbar:
                             for chunk in response.iter_content(chunk_size=1024):
