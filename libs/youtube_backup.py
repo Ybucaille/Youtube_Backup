@@ -76,14 +76,10 @@ class YouTubeDownloader:
         }
         video_urls = []
 
-        params["pageToken"] = ""  # Définir le paramètre "pageToken" à la valeur par défaut
-
         # Récupérer le nombre total de vidéos de la chaîne YouTube
         channel_videos_count = int(self.get_channel_videos_count(channel_id))
-        # Indiquer s'il y a une page suivante de résultats
-        has_next_page = True
         # Effectuer une requête à l'API tant que toutes les vidéos n'ont pas été récupérées
-        while len(video_urls) < channel_videos_count and has_next_page:
+        while len(video_urls) < channel_videos_count:
             # Effectuer une requête GET à l'API
             response = requests.get(url, params=params)
             # Vérifier si la requête a réussi
@@ -92,7 +88,7 @@ class YouTubeDownloader:
                 print(f'La requête a échoué avec le code de statut {response.status_code}')
                 return None
             # Récupérer les données de la réponse
-            data = response.json()
+            data = response.json() 
             # Vérifier si les données contiennent la clé attendue
             if "items" not in data:
                 print("La réponse ne contient pas les données attendues")
@@ -102,14 +98,7 @@ class YouTubeDownloader:
                 video_id = item["id"]["videoId"]
                 video_url = f'https://www.youtube.com/watch?v={video_id}'
                 video_urls.append(video_url)
-            # Vérifier si il y a une page suivante de résultats
-            if "nextPageToken" in data:
-                data["pageToken"] = data["nextPageToken"]
-            else:
-                break
             
-            # Mettre à jour le paramètre pageToken pour récupérer la prochaine page de résultats
-            params["pageToken"] = data["nextPageToken"]
         # On récupère le path du dossier courant
         path = os.getcwd()
         # on vérifie si le dossier videos existe déjà dans le dossier courant
@@ -117,8 +106,7 @@ class YouTubeDownloader:
             #créer un dossier videos dans le dossier courant
             path = os.path.join(path, 'jsons')
             os.mkdir(path)
-        else:
-            path = os.path.join(path, 'videos')
+
         # Stocker les résultats dans un fichier JSON
         path = os.getcwd()
         filename = '\\jsons\\videos_{}.json'.format(self.get_channel_title(channel_id))
