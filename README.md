@@ -47,7 +47,7 @@ python main.py --start <VIDEO_ID>
 
 Options disponibles :
 ```bash
---start     ID de la vidéo à partir de laquelle commencer
+--start     ID d'une vidéo de ta chaîne YouTube
 --help      Affiche l’aide
 ```
 
